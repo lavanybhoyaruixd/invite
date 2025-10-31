@@ -6,7 +6,26 @@ const MusicPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [audioLoaded, setAudioLoaded] = useState(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Function to attempt playing audio
+  const attemptPlay = async () => {
+    const audio = audioRef.current;
+    if (!audio || !audioLoaded) return;
+
+    try {
+      console.log('Attempting to play...');
+      await audio.play();
+      setIsPlaying(true);
+      setAutoplayBlocked(false);
+      console.log('Playing successfully');
+    } catch (error) {
+      console.error('Playback failed:', error);
+      setIsPlaying(false);
+      setAutoplayBlocked(true); // Mark that autoplay was blocked
+    }
+  };
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -16,7 +35,11 @@ const MusicPlayer: React.FC = () => {
     const handleCanPlay = () => {
       console.log('Audio can play now');
       setAudioLoaded(true);
-      startPlayback();
+      
+      // Delay autoplay by 2 seconds after the audio is loaded
+      setTimeout(() => {
+        attemptPlay();
+      }, 2000);
     };
 
     const handleError = (e: Event) => {
@@ -24,32 +47,15 @@ const MusicPlayer: React.FC = () => {
       setIsPlaying(false);
     };
 
-    // Function to start playback
-    const startPlayback = async () => {
-      try {
-        console.log('Attempting to play...');
-        await audio.play();
-        setIsPlaying(true);
-        console.log('Playing successfully');
-      } catch (error) {
-        console.error('Playback failed:', error);
-        setIsPlaying(false);
-      }
-    };
-
     // Set up audio element
     audio.load(); // Force reload the audio
     audio.volume = 1.0;
     audio.muted = false;
+    audio.loop = true; // Ensure continuous looping
 
     // Add event listeners
     audio.addEventListener('canplay', handleCanPlay);
     audio.addEventListener('error', handleError);
-
-    return () => {
-      audio.removeEventListener('canplay', handleCanPlay);
-      audio.removeEventListener('error', handleError);
-    };
 
     // Handle page visibility changes
     const handleVisibilityChange = () => {
@@ -58,31 +64,42 @@ const MusicPlayer: React.FC = () => {
       if (document.hidden) {
         audio.pause();
         setIsPlaying(false);
-      } else if (audioLoaded) {
-        audio.play()
-          .then(() => setIsPlaying(true))
-          .catch(console.error);
+      } else if (audioLoaded && !autoplayBlocked) {
+        attemptPlay();
+      }
+    };
+
+    // Handle click/tap anywhere on the page if autoplay was blocked
+    const handlePageInteraction = () => {
+      if (autoplayBlocked) {
+        attemptPlay();
       }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener('click', handlePageInteraction);
+    document.addEventListener('touchstart', handlePageInteraction);
 
-    // Auto-hide after 5 seconds
+    // Auto-hide player controls after 5 seconds
     const timer = setTimeout(() => {
       setIsVisible(false);
     }, 5000);
 
     return () => {
       clearTimeout(timer);
+      audio.removeEventListener('canplay', handleCanPlay);
+      audio.removeEventListener('error', handleError);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener('click', handlePageInteraction);
+      document.removeEventListener('touchstart', handlePageInteraction);
     };
-  }, [isPlaying, audioLoaded]);
+  }, [isPlaying, audioLoaded, autoplayBlocked, attemptPlay]);
 
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play().catch(console.error);
+        attemptPlay();
       }
       setIsPlaying(!isPlaying);
     }
@@ -118,7 +135,7 @@ const MusicPlayer: React.FC = () => {
               </motion.div>
             </motion.button>
             <span className="music-label">
-              {isPlaying ? 'Playing...' : 'Play Music'}
+              {isPlaying ? 'Playing...' : autoplayBlocked ? 'Tap to play' : 'Play Music'}
             </span>
             <button className="music-close" onClick={toggleVisibility}>
               ×
@@ -146,7 +163,6 @@ const MusicPlayer: React.FC = () => {
         loop
         preload="auto"
         playsInline
-        autoPlay
         controls={false}
         muted={false}
         onError={(e) => console.error('Audio error:', e)}
