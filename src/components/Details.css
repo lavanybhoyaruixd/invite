@@ -1,0 +1,361 @@
+.details {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f4e4c1 0%, #faf8f3 50%, #e8d5b7 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.details::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 30% 40%, rgba(139, 69, 19, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.details-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.details-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #8b4513;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.details-subtitle {
+  font-size: 1.2rem;
+  color: #6b4423;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.details-divider {
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #d4af37, #f4e4c1, #d4af37);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.details-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  margin-bottom: 80px;
+  padding: 0 10px;
+}
+
+.details-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.details-card-inner {
+  padding: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.details-card.ceremony .details-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #d4af37, #f4e4c1);
+}
+
+.details-card.reception .details-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #8b4513, #a0522d);
+}
+
+.details-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.details-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #8b4513;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.details-info {
+  margin-bottom: 30px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #8b4513;
+  font-size: 1.1rem;
+}
+
+.info-value {
+  color: #6b4423;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.details-button {
+  background: linear-gradient(45deg, #d4af37, #f4e4c1);
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  color: #8b4513;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.details-button:hover {
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+  transform: translateY(-2px);
+}
+
+.details-additional {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 60px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.additional-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.info-section h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #8b4513;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.info-section p {
+  color: #6b4423;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.details-countdown {
+  text-align: center;
+  background: linear-gradient(135deg, #8b4513, #a0522d);
+  color: white;
+  padding: 50px 40px;
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.details-countdown h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #f4e4c1;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(244, 228, 193, 0.2);
+  min-width: 100px;
+}
+
+.countdown-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f4e4c1;
+  margin-bottom: 5px;
+}
+
+.countdown-label {
+  font-size: 1rem;
+  color: #e8d5b7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .details {
+    padding: 40px 0;
+  }
+  
+  .details-container {
+    padding: 0 15px;
+  }
+  
+  .details-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .details-card {
+    margin: 0 10px;
+  }
+  
+  .details-card-inner {
+    padding: 25px 15px;
+  }
+  
+  .details-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  
+  .details-subtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .details-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+  }
+  
+  .details-card h3 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    padding: 12px 0;
+  }
+  
+  .info-value {
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  
+  .additional-info {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .details-additional {
+    padding: 25px 15px;
+    margin: 0 10px 40px 10px;
+  }
+  
+  .countdown-timer {
+    gap: 12px;
+  }
+  
+  .countdown-item {
+    min-width: 70px;
+    padding: 12px;
+  }
+  
+  .countdown-number {
+    font-size: 1.75rem;
+  }
+  
+  .countdown-label {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .details {
+    padding: 30px 0;
+  }
+  
+  .details-content {
+    gap: 15px;
+  }
+  
+  .details-card-inner {
+    padding: 20px 12px;
+  }
+  
+  .details-icon {
+    font-size: 2.5rem;
+  }
+  
+  .details-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .info-label {
+    font-size: 1rem;
+  }
+  
+  .info-value {
+    font-size: 0.9rem;
+  }
+  
+  .countdown-item {
+    min-width: 60px;
+    padding: 10px;
+  }
+  
+  .countdown-number {
+    font-size: 1.5rem;
+  }
+  
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+}
+

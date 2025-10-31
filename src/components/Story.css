@@ -1,0 +1,352 @@
+.story {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #faf8f3 0%, #f4e4c1 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.story::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(244, 228, 193, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(232, 213, 183, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.story-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.story-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #8b4513;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.story-divider {
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #d4af37, #f4e4c1, #d4af37);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.story-timeline {
+  position: relative;
+}
+
+.story-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #d4af37, #f4e4c1, #d4af37);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.story-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 100px;
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.story-item::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 24px;
+  height: 24px;
+  background: #d4af37;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.story-item:nth-child(even)::before {
+  animation: pulse 2s infinite;
+}
+
+.story-item:nth-child(odd)::before {
+  animation: pulse 2s infinite 1s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+  }
+}
+
+.story-image-container {
+  flex: 0 0 45%;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+}
+
+.story-item.reverse .story-image-container {
+  order: 2;
+}
+
+.story-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.story-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding: 30px 20px 20px;
+  color: white;
+}
+
+.story-date {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f4e4c1;
+}
+
+.story-text {
+  flex: 0 0 45%;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  max-width: 500px;
+}
+
+.story-item.reverse .story-text {
+  order: 1;
+  text-align: right;
+}
+
+.story-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #8b4513;
+  margin-bottom: 25px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.story-text p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #6b4423;
+  margin: 0;
+  text-align: justify;
+}
+
+.story-quote {
+  text-align: center;
+  margin-top: 80px;
+  padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.story-quote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #8b4513;
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+}
+
+.story-quote cite {
+  font-size: 1rem;
+  color: #d4af37;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .story-item {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .story-image-container,
+  .story-item.reverse .story-image-container {
+    flex: 0 0 auto;
+    width: 90%;
+    max-width: 600px;
+    order: 1;
+  }
+
+  .story-text,
+  .story-item.reverse .story-text {
+    flex: 0 0 auto;
+    width: 90%;
+    max-width: 600px;
+    order: 2;
+    text-align: center;
+  }
+
+  .story-text p {
+    text-align: center;
+  }
+
+  .story-timeline::before {
+    display: none;
+  }
+
+  .story-item::before {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .story {
+    padding: 40px 0;
+  }
+
+  .story-container {
+    padding: 0 15px;
+  }
+
+  .story-header {
+    margin-bottom: 40px;
+  }
+
+  .story-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 15px;
+  }
+
+  .story-image-container {
+    width: 100%;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .story-image {
+    height: 280px;
+  }
+
+  .story-text {
+    width: 100%;
+    padding: 25px 20px;
+    margin: 0 auto;
+  }
+
+  .story-text h3 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .story-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .story-date {
+    font-size: 1.25rem;
+  }
+  
+  .story-quote {
+    padding: 30px 20px;
+    margin-top: 40px;
+  }
+  
+  .story-quote blockquote {
+    font-size: 1.1rem;
+  }
+
+  .story-item {
+    margin-bottom: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .story {
+    padding: 30px 0;
+  }
+
+  .story-header {
+    margin-bottom: 30px;
+  }
+
+  .story-image-container {
+    height: 240px;
+  }
+
+  .story-image {
+    height: 240px;
+  }
+
+  .story-text {
+    padding: 20px 15px;
+  }
+
+  .story-text h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .story-text p {
+    font-size: 0.95rem;
+  }
+
+  .story-date {
+    font-size: 1.1rem;
+  }
+  
+  .story-quote {
+    padding: 25px 15px;
+    margin-top: 30px;
+  }
+  
+  .story-quote blockquote {
+    font-size: 1rem;
+  }
+
+  .story-item {
+    margin-bottom: 40px;
+  }
+}
+
